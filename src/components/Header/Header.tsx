@@ -9,8 +9,8 @@ import ThemeContext from "../../contexts/ThemeContext";
 const Header = () => {
   const { isDarkMode, updateTheme } = React.useContext(ThemeContext);
   return (
-    <header className="absolute z-10 h-20 w-full rounded-bl-2xl rounded-br-2xl px-8 pt-8 sm:px-4 sm:py-1">
-      <nav className="flex h-full items-center justify-end text-font-color dark:text-dark-font-color sm:justify-between">
+    <header className="fixed top-0 left-0 z-50 h-20 w-full px-8 pt-4 sm:px-6 transition-all backdrop-blur-md bg-white/40 dark:bg-dark-background-color/40 border-b border-white/20 dark:border-white/5">
+      <nav className="flex h-full items-center justify-end text-font-color dark:text-dark-font-color sm:justify-between max-w-[100rem] mx-auto">
         <a
           href="/"
           className="logo-and-title-container order-2 flex items-center sm:order-1"

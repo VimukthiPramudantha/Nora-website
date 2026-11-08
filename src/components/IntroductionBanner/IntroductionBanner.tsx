@@ -20,19 +20,23 @@ const IntroductionBanner = () => {
 
   return (
     <div
-      className="relative mb-8 grid h-[85vh] max-h-[55rem] w-full grid-rows-2 items-center overflow-hidden pt-20 shadow-2xl sm:h-[calc(100vh-1rem)] md:grid-rows-[1fr_2fr] lg:grid-rows-2 xl:max-h-[60rem]"
+      className="relative mb-8 grid h-[90vh] max-h-[58rem] w-full grid-rows-2 items-center overflow-hidden pt-24 shadow-2xl sm:h-[calc(100vh-1rem)] md:grid-rows-[1fr_2fr] lg:grid-rows-2 xl:max-h-[64rem]"
       ref={BannerRef}
     >
       <img
         src={isDarkMode ? BackgroundBannerDark : BackgroundBannerLight}
         alt="Stacked waves banner"
-        className="absolute h-full w-full object-cover pointer-events-none"
+        className="absolute h-full w-full object-cover pointer-events-none opacity-80"
       />
+
+      {/* Ambient Radial Gradient Orbs for extra background depth behind the header */}
+      <div className="absolute top-10 left-1/4 -translate-x-1/2 w-[28rem] h-[28rem] rounded-full bg-blue-500/20 blur-[100px] pointer-events-none" />
+      <div className="absolute top-24 right-1/4 translate-x-1/2 w-[32rem] h-[32rem] rounded-full bg-cyan-400/15 dark:bg-indigo-500/20 blur-[120px] pointer-events-none" />
 
       {/* 3D Interactive Vinyl & Frequency Visualizer */}
       <Hero3DScene isDarkMode={isDarkMode} />
 
-      <p className="relative bottom-0 z-10 px-8 text-right text-[2.75rem] font-medium leading-[3.5rem] text-font-color dark:text-dark-font-color sm:text-6xl sm:leading-[4.5rem] lg:px-0 lg:text-center lg:leading-[1.25] 2xl:text-8xl drop-shadow-[0_10px_20px_rgba(0,0,0,0.15)] pointer-events-none">
+      <p className="relative bottom-0 z-10 px-8 text-right text-[2.75rem] font-medium leading-[3.5rem] text-font-color dark:text-dark-font-color sm:text-6xl sm:leading-[4.5rem] lg:px-0 lg:text-center lg:leading-[1.25] 2xl:text-8xl drop-shadow-[0_12px_24px_rgba(0,0,0,0.2)] pointer-events-none">
         Experience Everything <br /> a Music Player Should Have
       </p>
 
