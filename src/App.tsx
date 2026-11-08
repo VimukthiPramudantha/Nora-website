@@ -17,6 +17,7 @@ import Suggestions from "./components/AppFeatures/Suggestions/Suggestions";
 import AppInterface from "./components/AppFeatures/AppInterface/AppInterface";
 import Feedback from "./components/Feedback/Feedback";
 import Footer from "./components/Footer/Footer";
+import Section3D from "./components/Common/Section3D";
 
 function App() {
   const [isDarkMode, setIsDarkMode] = React.useState(false);
@@ -64,18 +65,41 @@ function App() {
       <ThemeContext.Provider value={{ isDarkMode, updateTheme }}>
         <Header />
         <IntroductionBanner />
-        <div className="features relative mx-auto grid max-w-[100rem] grid-flow-row gap-12 lg:overflow-visible">
-          <ReleaseNotesContext.Provider value={releaseNotes}>
-            <DownloadPrompt />
-          </ReleaseNotesContext.Provider>
-          <SwitchThemes />
-          <CodecSupport />
-          <EditMetadata />
-          <LyricsSupport />
-          <Suggestions />
-          <AppInterface />
+        <div className="features relative mx-auto grid max-w-[100rem] grid-flow-row gap-16 md:gap-24 lg:overflow-visible px-4 sm:px-6">
+          <Section3D direction="up">
+            <ReleaseNotesContext.Provider value={releaseNotes}>
+              <DownloadPrompt />
+            </ReleaseNotesContext.Provider>
+          </Section3D>
+
+          <Section3D direction="right">
+            <SwitchThemes />
+          </Section3D>
+
+          <Section3D direction="up">
+            <CodecSupport />
+          </Section3D>
+
+          <Section3D direction="left">
+            <EditMetadata />
+          </Section3D>
+
+          <Section3D direction="up">
+            <LyricsSupport />
+          </Section3D>
+
+          <Section3D direction="right">
+            <Suggestions />
+          </Section3D>
+
+          <Section3D direction="up">
+            <AppInterface />
+          </Section3D>
         </div>
-        <Feedback />
+
+        <Section3D direction="up">
+          <Feedback />
+        </Section3D>
         <Footer />
       </ThemeContext.Provider>
     </div>
