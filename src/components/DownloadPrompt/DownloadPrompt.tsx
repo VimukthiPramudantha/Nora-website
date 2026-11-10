@@ -15,6 +15,8 @@ import { faApple, faGithub, faLinux, faWindows } from '@fortawesome/free-brands-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { GithubLatestReleaseAPI } from '../../@types/github_latest_release_api';
 
+import Card3D from '../Common/Card3D.tsx';
+
 const parser = new UAParser();
 const currentOs = parser.getOS().name;
 const currentArch = parser.getCPU().architecture;
@@ -54,14 +56,6 @@ const DownloadPrompt = () => {
 		});
 	}, []);
 
-	// const downloadUrl = useMemo(() => {
-	//   if (asset) {
-	//     if(Array.isArray(asset)) return asset[0]?.download_url
-	//     return asset.metadata?.download_url;
-	//   }
-	//   return undefined;
-	// },[])
-
 	const osIcon = useCallback((os: string) => {
 		switch (os) {
 			case 'win':
@@ -78,89 +72,91 @@ const DownloadPrompt = () => {
 	return (
 		<>
 			{releaseNotes && (
-				<div
-					id="downloadPrompt"
-					className="outline-3 mx-auto mb-12 flex w-[95%] max-w-[2048px] flex-col items-center justify-center rounded-xl p-4 text-center shadow-lg outline outline-foreground-color dark:outline-dark-foreground-color"
-					style={{
-						backgroundImage: `url("${isDarkMode ? patternDark : patternLight}")`,
-					}}>
-					<p className="font-medium text-font-color-2 dark:text-dark-font-color-2">
-						<span className="text-font-color dark:text-font-white">v{latestVersion?.version}</span> is out now!
-					</p>
-					<p className="text-center text-3xl font-medium dark:text-font-white">
-						With support for <span className="text-font-color-2 dark:text-dark-font-color-2">Windows</span>,{' '}
-						<span className="text-font-color-2 dark:text-dark-font-color-2">Linux</span>
-						<sup className="">1</sup> and <span className="text-font-color-2 dark:text-dark-font-color-2">macOS</span>
-					</p>
+				<Card3D depth={8} className="mx-auto w-[95%] max-w-[2048px]">
+					<div
+						id="downloadPrompt"
+						className="outline-3 flex w-full flex-col items-center justify-center rounded-2xl p-6 text-center shadow-2xl backdrop-blur-sm border border-white/20 dark:border-white/5 outline outline-foreground-color dark:outline-dark-foreground-color"
+						style={{
+							backgroundImage: `url("${isDarkMode ? patternDark : patternLight}")`,
+						}}>
+						<p className="font-medium text-font-color-2 dark:text-dark-font-color-2">
+							<span className="text-font-color dark:text-font-white">v{latestVersion?.version}</span> is out now!
+						</p>
+						<p className="text-center text-3xl font-medium dark:text-font-white">
+							With support for <span className="text-font-color-2 dark:text-dark-font-color-2">Windows</span>,{' '}
+							<span className="text-font-color-2 dark:text-dark-font-color-2">Linux</span>
+							<sup className="">1</sup> and <span className="text-font-color-2 dark:text-dark-font-color-2">macOS</span>
+						</p>
 
-					<p className="mt-2 text-xs">
-						Detected OS: {currentOs} | Architecture: {currentArch}
-					</p>
+						<p className="mt-2 text-xs opacity-75">
+							Detected OS: {currentOs} | Architecture: {currentArch}
+						</p>
 
-					<div className="download-buttons-container mt-2 flex items-center justify-center gap-2 flex-wrap">
-						{Array.isArray(assets) ? (
-							assets.map((asset) => {
-								const icon = osIcon(asset.os);
+						<div className="download-buttons-container mt-4 flex items-center justify-center gap-3 flex-wrap">
+							{Array.isArray(assets) ? (
+								assets.map((asset, idx) => {
+									const icon = osIcon(asset.os);
 
-								return (
-									<div className="flex items-center flex-col">
-										<a
-											href={asset.download_url}
-											target="_blank"
-											rel="noopener noreferrer"
-											className="mt-2 flex items-center rounded-full border-2 border-solid border-[#fff] bg-foreground-color px-8 py-2 text-lg font-medium transition-colors hover:border-foreground-color dark:border-dark-foreground-color dark:text-font-color dark:hover:border-foreground-color">
-											{icon && <FontAwesomeIcon icon={icon} className="mr-2" />}
-											<p>Download for {OS_NAMES[asset.os]}</p>
-										</a>
-										{assets.length > 0 && (
-											<p className="text-sm font-normal h-min bg-background-color/75 dark:bg-dark-background-color/75 w-fit px-4 py-1 rounded-b-md text-center">
-												{asset.arch} - {asset.ext}
-											</p>
-										)}
-									</div>
-								);
-							})
-						) : (
+									return (
+										<div key={idx} className="flex items-center flex-col transition-transform hover:-translate-y-1">
+											<a
+												href={asset.download_url}
+												target="_blank"
+												rel="noopener noreferrer"
+												className="mt-2 flex items-center rounded-full border-2 border-solid border-[#fff] bg-foreground-color px-8 py-3 text-lg font-medium shadow-md transition-all hover:shadow-xl hover:border-foreground-color dark:border-dark-foreground-color dark:text-font-color dark:hover:border-foreground-color">
+												{icon && <FontAwesomeIcon icon={icon} className="mr-2" />}
+												<p>Download for {OS_NAMES[asset.os]}</p>
+											</a>
+											{assets.length > 0 && (
+												<p className="text-sm font-normal h-min bg-background-color/75 dark:bg-dark-background-color/75 w-fit px-4 py-1 rounded-b-md text-center shadow-inner">
+													{asset.arch} - {asset.ext}
+												</p>
+											)}
+										</div>
+									);
+								})
+							) : (
+								<a
+									href={packageJson.appInfo.nora_releases_url}
+									target="_blank"
+									rel="noopener noreferrer"
+									className="mt-2 flex items-center rounded-full border-2 border-solid border-[#fff] bg-foreground-color px-8 py-3 text-lg font-medium shadow-md transition-all hover:shadow-xl hover:border-foreground-color dark:border-dark-foreground-color dark:text-font-color dark:hover:border-foreground-color">
+									<FontAwesomeIcon icon={faGithub} className="mr-2" />
+									Download from Github
+								</a>
+							)}
+						</div>
+
+						<div className="mt-4 text-xs flex gap-2 items-center opacity-85">
+							<a
+								href={packageJson.appInfo.changelog_url}
+								target="_blank"
+								rel="noopener noreferrer"
+								className="underline hover:text-font-color-2"
+								title="Nora's Changelog">
+								Changelog
+							</a>
+							|
+							<a
+								href={latestRelease?.html_url}
+								target="_blank"
+								rel="noopener noreferrer"
+								className="underline hover:text-font-color-2"
+								title="Other downloads">
+								Other downloads
+							</a>
+							|
 							<a
 								href={packageJson.appInfo.nora_releases_url}
 								target="_blank"
 								rel="noopener noreferrer"
-								className="mt-2 flex items-center rounded-full border-2 border-solid border-[#fff] bg-foreground-color px-8 py-2 text-lg font-medium transition-colors hover:border-foreground-color dark:border-dark-foreground-color dark:text-font-color dark:hover:border-foreground-color">
-								<FontAwesomeIcon icon={faGithub} className="mr-2" />
-								Download from Github
+								className="underline hover:text-font-color-2"
+								title="Older releases">
+								Older releases
 							</a>
-						)}
+						</div>
 					</div>
-
-					<div className="mt-4 text-xs flex gap-1 items-center">
-						<a
-							href={packageJson.appInfo.changelog_url}
-							target="_blank"
-							rel="noopener noreferrer"
-							className="underline"
-							title="Nora's Changelog">
-							Changelog
-						</a>
-						|
-						<a
-							href={latestRelease?.html_url}
-							target="_blank"
-							rel="noopener noreferrer"
-							className="underline"
-							title="Other downloads">
-							Other downloads
-						</a>
-						|
-						<a
-							href={packageJson.appInfo.nora_releases_url}
-							target="_blank"
-							rel="noopener noreferrer"
-							className="underline"
-							title="Older releases">
-							Older releases
-						</a>
-					</div>
-				</div>
+				</Card3D>
 			)}
 		</>
 	);
