@@ -118,22 +118,26 @@ const Feedback = () => {
 
 	return (
 		<div
-			className="bg-texture dark:bg-texture-dark mt-12 pb-6 pt-2 shadow-inset-light dark:shadow-inset-dark"
+			className="relative overflow-hidden mt-6 pb-8 pt-4 shadow-inset-light dark:shadow-inset-dark rounded-3xl mx-auto w-[95%] max-w-[120rem] border border-white/20 dark:border-white/5"
 			style={{
 				backgroundImage: `url("${isDarkMode ? patternDark : patternLight}")`,
 			}}>
-			<div className="flex h-[22rem] flex-col items-center justify-center text-center">
-				<p className="mb-4 py-2 text-3xl font-medium [text-wrap:balance]">What Users think about Nora</p>
+			{/* Ambient Glowing 3D Orbs in the background of Feedback */}
+			<div className="pointer-events-none absolute -left-20 top-1/2 -translate-y-1/2 w-72 h-72 rounded-full bg-blue-500/20 blur-[80px]" />
+			<div className="pointer-events-none absolute -right-20 top-1/2 -translate-y-1/2 w-72 h-72 rounded-full bg-cyan-400/20 blur-[80px]" />
+
+			<div className="relative z-10 flex h-[22rem] flex-col items-center justify-center text-center">
+				<p className="mb-4 py-2 text-3xl font-medium [text-wrap:balance] drop-shadow-sm">What Users think about Nora</p>
 				<div
 					className={`grid grid-cols-[repeat(3,100%)] gap-12 overflow-y-scroll px-[25%] pb-6 md:overflow-hidden`}
 					ref={containerRef}>
 					{visibleFeedbackComponent}
 				</div>
 			</div>
-			<div className="mb-4 mt-4 flex flex-col items-center justify-center">
+			<div className="relative z-10 mb-4 mt-4 flex flex-col items-center justify-center">
 				<div className="flex items-center justify-center">{navigationDots}</div>
 				<button
-					className="mt-4 flex w-fit items-center text-sm"
+					className="mt-4 flex w-fit items-center text-sm p-2 rounded-full hover:bg-black/10 dark:hover:bg-white/10 transition-colors"
 					title={`${isAnimationWorking ? 'Stop' : 'Start'} Animation`}
 					onClick={() => setIsAnimationWorking((prevState) => !prevState)}>
 					<span className="material-symbols-rounded">

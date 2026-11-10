@@ -34,7 +34,7 @@ export const Section3D: React.FC<Section3DProps> = ({
     <div
       ref={ref}
       style={{ perspective: 1200 }}
-      className="w-full my-6 md:my-10"
+      className="w-full my-1 sm:my-2"
     >
       <motion.div
         style={{

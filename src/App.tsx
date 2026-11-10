@@ -65,7 +65,15 @@ function App() {
       <ThemeContext.Provider value={{ isDarkMode, updateTheme }}>
         <Header />
         <IntroductionBanner />
-        <div className="features relative mx-auto grid max-w-[100rem] grid-flow-row gap-16 md:gap-24 lg:overflow-visible px-4 sm:px-6">
+
+        {/* Ambient background decoration shapes across the website sections */}
+        <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden opacity-30 dark:opacity-20">
+          <div className="absolute top-[25%] -left-32 w-96 h-96 rounded-full bg-blue-500/30 blur-[130px]" />
+          <div className="absolute top-[45%] -right-32 w-[30rem] h-[30rem] rounded-full bg-cyan-400/25 blur-[150px]" />
+          <div className="absolute top-[70%] left-10 w-96 h-96 rounded-full bg-indigo-500/25 blur-[140px]" />
+        </div>
+
+        <div className="features relative z-10 mx-auto grid max-w-[100rem] grid-flow-row gap-6 md:gap-8 lg:overflow-visible px-4 sm:px-6">
           <Section3D direction="up">
             <ReleaseNotesContext.Provider value={releaseNotes}>
               <DownloadPrompt />
